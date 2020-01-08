@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Tests.
+"""
 from __future__ import unicode_literals
 from datetime import datetime
 from rest_framework import status

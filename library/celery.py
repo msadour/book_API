@@ -1,3 +1,7 @@
+"""
+Celery files.
+"""
+
 import os
 from celery import Celery
 from .settings import INSTALLED_APPS

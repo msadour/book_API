@@ -1,3 +1,6 @@
+"""
+Class Singleton
+"""
 from django.db import models
 
 
