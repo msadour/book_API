@@ -3,7 +3,10 @@ Factories classes.
 """
 
 import factory
-from .models import User, Book
+from factory.faker import faker
+from .models import User, Book, Profile
+
+FAKE = faker.Faker()
 
 
 class BookFactory(factory.django.DjangoModelFactory):
@@ -24,9 +27,19 @@ class UserFactory(factory.django.DjangoModelFactory):
     Class UserFactory.
     """
 
-    username = factory.Sequence(lambda n: 'person{0}@example.com'.format(n))
-    email = factory.Sequence(lambda n: 'person{0}@example.com'.format(n))
+    username = FAKE.email()
+    email = FAKE.email()
     password = 'qwertz'
 
     class Meta:
         model = User
+
+
+class ProfilFactory(factory.django.DjangoModelFactory):
+    """
+    Class ProfileFactory.
+    """
+
+    class Meta:
+        model = Profile
+

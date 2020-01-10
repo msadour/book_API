@@ -31,6 +31,7 @@ jsonschema==2.6.0
 kombu==4.6.7
 MarkupSafe==1.0
 more-itertools==8.0.2
+mypy==0.761
 netifaces==0.10.4
 oauthlib==2.0.6
 pyasn1==0.4.2

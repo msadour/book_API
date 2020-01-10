@@ -1,10 +1,40 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 from datetime import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver, Signal
+
+
 from .singleton import SingletonModel
 from celery import shared_task
+
+
+class Profile(models.Model):
+    """
+    Class Profile
+    """
+    user = models.ForeignKey(User, related_name='profile', on_delete=models.CASCADE)
+    profile_photo = models.ImageField(upload_to='profile_photo/', default='profile_photo/photo.jpeg')
+
+    def get_username(self):
+        return self.user.username
+
+
+@receiver(post_save, sender=Profile)
+def new_user(sender, **kwargs):
+    new_profile = kwargs.get('instance')
+    print("The user " + new_profile.get_username() + " has been created.")
+
+
+def init_profil():
+
+    user = User.objects.get(username='test')
+    profile = Profile(user=user)
+    print(profile.profile_photo.name)
+    print(profile.profile_photo.path)
 
 
 class Settings(SingletonModel):
