@@ -25,7 +25,7 @@ SECRET_KEY = '&jrygvg%hte_aig##j0qwaujt2c)s*n^2pdjece5a^k$f$9h_z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'amqp://127.0.0.1', 'amqp://localhost']
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -120,7 +120,7 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT = 'media/'
 
