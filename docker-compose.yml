@@ -3,9 +3,14 @@ version: '3'
 services:
   db:
     image: postgres
+#    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DATABSE=library
   web:
     build: .
-    command: python manage.py runserver 127.0.0.1:8000
+    tty: true
+    command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:

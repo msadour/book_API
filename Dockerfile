@@ -1,9 +1,13 @@
 FROM django
 
-ADD . /library
+ADD . .
 
-WORKDIR /library
+WORKDIR .
+
+RUN apt-get update && apt-get install -y build-essential pkg-config
+
+RUN python -m pip install -U Django
 
 RUN pip install -r requirements.txt
 
-CMD [ "python", "./manage.py runserver 127.0.0.1:8000" ]
+# RUN createdb library

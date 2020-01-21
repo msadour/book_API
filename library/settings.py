@@ -26,7 +26,7 @@ SECRET_KEY = '&jrygvg%hte_aig##j0qwaujt2c)s*n^2pdjece5a^k$f$9h_z'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,14 +77,24 @@ APPEND_SLASH = False
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'library',
+#         'USER': 'postgres',
+#         'PASSWORD': '',
+#         'HOST': 'postgresql',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'library',
-        'USER': 'mehdi',
-        'PASSWORD': 'qwertz',
-        'HOST': 'localhost',
-        'PORT': '',
+        'USER': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
     }
 }
 
