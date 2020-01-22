@@ -3,7 +3,9 @@ Celery files.
 """
 
 import os
+
 from celery import Celery
+
 from .settings import INSTALLED_APPS
 
 
@@ -16,4 +18,7 @@ app.autodiscover_tasks(lambda: INSTALLED_APPS)
 
 @app.task(bind=True)
 def debug_task(self):
+    """
+    Display the received request.
+    """
     print('Request: {0!r}'.format(self.request))

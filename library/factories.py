@@ -4,6 +4,7 @@ Factories classes.
 
 import factory
 from factory.faker import faker
+
 from .models import User, Book, Profile
 
 FAKE = faker.Faker()

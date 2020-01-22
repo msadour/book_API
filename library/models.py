@@ -5,11 +5,10 @@ from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
-from django.dispatch import receiver, Signal
-
+from django.dispatch import receiver
+from celery import shared_task
 
 from .singleton import SingletonModel
-from celery import shared_task
 
 
 class Profile(models.Model):
@@ -20,21 +19,21 @@ class Profile(models.Model):
     profile_photo = models.ImageField(upload_to='profile_photo/', default='profile_photo/photo.jpeg')
 
     def get_username(self):
+        """
+        Return the username of the user's profile.
+        :return: username of the user's profile
+        """
         return self.user.username
 
 
 @receiver(post_save, sender=Profile)
 def new_user(sender, **kwargs):
+    """
+    Method who tell us when a new profile is created.
+    """
+
     new_profile = kwargs.get('instance')
     print("The user " + new_profile.get_username() + " has been created.")
-
-
-def init_profil():
-
-    user = User.objects.get(username='test')
-    profile = Profile(user=user)
-    print(profile.profile_photo.name)
-    print(profile.profile_photo.path)
 
 
 class Settings(SingletonModel):
@@ -42,13 +41,19 @@ class Settings(SingletonModel):
     Class Settings
     """
     theme = models.CharField(max_length=300, default='dark')
-#
-#
+
+
 class PublishManager(models.Manager):
     """
     Objects manager worked with dates published
     """
+
     def republish(self, new_date):
+        """
+        Update all date as a new date
+        :param new_date: The new date
+        """
+
         self.get_queryset().all().update(date_published=new_date)
 
 
@@ -75,6 +80,7 @@ class Book(models.Model):
     def send_notification(self, number):
         """
         Send notification to the users.
+        :param number: The number of how many time we send the nofitication.
         """
         self.create_notification.delay(number, self.id)
 
@@ -83,7 +89,10 @@ class Book(models.Model):
     def create_notification(number, id_book):
         """
         Create notifications.
+        :param number: The number of how many time we send the nofitication.
+        :param id_book: The id of the book.
         """
+
         book = Book.objects.get(id=id_book)
         for num_book in range(number):
             Notification(
